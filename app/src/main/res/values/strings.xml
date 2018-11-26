@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">PR06-RecyclerView-PRM</string>
+    <string name="cv_button_edit">Edit</string>
+    <string name="cv_button_Delete">Delete</string>
+    <string name="no_users_yet">No users yet</string>
+
+    <string name="avatar_label">Select Avatar</string>
+    <string name="main_invalid_data">Invalid data</string>
+    <string name="main_save">Save</string>
+    <string name="main_saved_succesfully">Student saved successfully</string>
+    <string name="main_error_saving">Error saving student</string>
+    <string name="avatar_select">Select</string>
+    <string name="profile_hint_email">(email)</string>
+    <string name="profile_hint_txtName">(name)</string>
+    <string name="profile_text_lblName">Name</string>
+    <string name="profile_text_lblEmail">email</string>
+    <string name="profile_hint_Phonenumber">(phone)</string>
+    <string name="profile_text_lblAddress">Address</string>
+    <string name="profile_hint_txtAddress">(address)</string>
+    <string name="profile_text_lblWeb">Web</string>
+    <string name="profile_hint_txtWeb">(url)</string>
+    <string name="profile_text_lblPhonenumber">Phone number</string>
+</resources>

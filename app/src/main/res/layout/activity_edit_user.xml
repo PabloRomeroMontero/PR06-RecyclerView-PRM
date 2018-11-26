@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imgAvatarMain"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="16:9"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/activity_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgAvatarMain" />
+
+        <TextView
+            android:id="@+id/lblAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/main_margin_start_lblAvatar"
+            android:layout_marginTop="@dimen/main_marginTop_lblAvatar"
+            android:layout_marginEnd="@dimen/main_marginEnd_lblAvatar"
+            android:layout_marginBottom="@dimen/main_marginBottom_lblAvatar"
+            android:textColor="@color/white"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintBottom_toTopOf="@+id/include"
+            app:layout_constraintEnd_toEndOf="@+id/imgAvatarMain"
+            app:layout_constraintHorizontal_bias="0.883"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.867" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
