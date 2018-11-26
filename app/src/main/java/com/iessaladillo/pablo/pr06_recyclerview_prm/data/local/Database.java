@@ -19,8 +19,10 @@ public class Database {
 
     private ArrayList<User> users = new ArrayList<>(
             Arrays.asList(
-                    new User(new Avatar(R.drawable.cat6, "Pablo"), "Pablo", "jaja@hotmail.com", "calle la pantomima", 2323424, "pablo.com"),
-                    new User(new Avatar(R.drawable.cat3, "Pablo"), "Pablo", "jaja@hotmail.com", "calle la pantomima", 2323424, "pablo.com")
+                    new User(new Avatar(R.drawable.cat6, "Pablo Romero"), "Pablo Romero", "pabloromero@hotmail.com", "calle la pantomima", 664691937, "pabloromero.com"),
+                    new User(new Avatar(R.drawable.cat3, "Carre"), "Alejandro Correro", "er_ale_bajadilla@hotmail.com", "en el orange al lado del tinoco", 664123456, "carremos.com"),
+                    new User(new Avatar(R.drawable.cat1, "Ricardo"), "Richard Stoneoza", "rick_94@hotmail.com", "en frente de cibertecnic", 78945613, "peperoni.com")
+
             )
     );
     private MutableLiveData<List<User>> userLiveData = new MutableLiveData<>();

@@ -16,6 +16,7 @@ import android.os.Parcelable;
 import android.view.View;
 
 import com.iessaladillo.pablo.pr06_recyclerview_prm.R;
+import com.iessaladillo.pablo.pr06_recyclerview_prm.databinding.ActivityMainItemBinding;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.ui.profile.ProfileActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
         b = DataBindingUtil.setContentView(this, R.layout.activity_main);
         vm = ViewModelProviders.of(this, new ViewModelFactoryActivityMain(Database.getInstance())).get(ViewModelMainActivity.class);
         setupViews();
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClickEdit(int position) {
-                editUser(listAdapter.getItem(position),position);
+                editUser(listAdapter.getItem(position), position);
                 listAdapter.notifyItemChanged(position);
             }
         });
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
     private void editUser(User user, int position) {
         Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
         intent.putExtra(ProfileActivity.USER, (Parcelable) user);
-        intent.putExtra(ProfileActivity.POSITION,position);
+        intent.putExtra(ProfileActivity.POSITION, position);
         this.startActivityForResult(intent, EDIT_USER);
 
     }
@@ -91,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
             }
         } else if (resultCode == RESULT_OK && requestCode == EDIT_USER) {
             if (data != null && data.hasExtra(ProfileActivity.USER)) {
-                vm.editUser(data.getParcelableExtra(ProfileActivity.USER),listAdapter.getItem(data.getIntExtra(ProfileActivity.POSITION,-1)));
-                listAdapter.notifyItemChanged(data.getIntExtra(ProfileActivity.POSITION,-1));
+                vm.editUser(data.getParcelableExtra(ProfileActivity.USER), listAdapter.getItem(data.getIntExtra(ProfileActivity.POSITION, -1)));
+                listAdapter.notifyItemChanged(data.getIntExtra(ProfileActivity.POSITION, -1));
             }
 
         }

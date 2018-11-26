@@ -17,52 +17,41 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.R;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.data.local.model.Avatar;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.data.local.model.User;
+import com.iessaladillo.pablo.pr06_recyclerview_prm.databinding.ActivityEditUserBinding;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.ui.avatar.AvatarActivity;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.ui.utils.ValidationUtils;
 
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
 import static com.google.android.material.snackbar.Snackbar.LENGTH_SHORT;
 
 public class ProfileActivity extends AppCompatActivity {
 
     public static final String POSITION = "POSITION";
+    private ActivityEditUserBinding b;
     private static final int RC_OTRA = 100;
-    private static final int NEW_USER = 200;
     public static final String USER = "USER";
     private ViewModelProfileActivity viewModel;
     private User intentUser;
-    private EditText txtWeb;
-    private EditText txtName;
-    private EditText txtAddress;
-    private EditText txtPhonenumber;
-    private EditText txtEmail;
-    private TextView lblName;
-    private TextView lblEmail;
-    private TextView lblAddress;
-    private TextView lblAvatar;
-    private TextView lblPhoneNumber;
-    private ImageView imgAddress;
-    private ImageView imgWeb;
-    private ImageView imgEmail;
-    private ImageView imgAvatar;
-    private ImageView imgPhoneNumber;
-    private TextView lblWeb;
     private int position;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_user);
+        b=DataBindingUtil.setContentView(this, R.layout.activity_edit_user);
         viewModel = ViewModelProviders.of(this)
                 .get(ViewModelProfileActivity.class);
         getIntentData();
@@ -83,184 +72,168 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void initView() {
 
-        txtWeb = ActivityCompat.requireViewById(this, R.id.txtWeb);
-        txtName = ActivityCompat.requireViewById(this, R.id.txtName);
-        txtAddress = ActivityCompat.requireViewById(this, R.id.txtAddress);
-        txtPhonenumber = ActivityCompat.requireViewById(this, R.id.txtPhonenumber);
-        txtEmail = ActivityCompat.requireViewById(this, R.id.txtEmail);
-        lblName = ActivityCompat.requireViewById(this, R.id.lblName);
-        lblEmail = ActivityCompat.requireViewById(this, R.id.lblEmail);
-        lblAddress = ActivityCompat.requireViewById(this, R.id.lblAddress);
-        lblAvatar = ActivityCompat.requireViewById(this, R.id.lblAvatar);
-        lblPhoneNumber = ActivityCompat.requireViewById(this, R.id.lblPhonenumber);
-        lblWeb = ActivityCompat.requireViewById(this, R.id.lblWeb);
-        imgAddress = ActivityCompat.requireViewById(this, R.id.imgAddress);
-        imgWeb = ActivityCompat.requireViewById(this, R.id.imgWeb);
-        imgEmail = ActivityCompat.requireViewById(this, R.id.imgEmail);
-        imgAvatar = ActivityCompat.requireViewById(this, R.id.imgAvatarMain);
-        imgPhoneNumber = ActivityCompat.requireViewById(this, R.id.imgPhonenumber);
         viewModel.setUser(intentUser);
         initUser();
 
-        imgWeb.setOnClickListener(v -> {
+        b.include.imgWeb.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_WEB_SEARCH)
-                    .putExtra(SearchManager.QUERY, txtWeb.getText().toString());
+                    .putExtra(SearchManager.QUERY, b.include.txtWeb.getText().toString());
 
 
-            if (validateWhitIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()))
+            if (validateWhitIcon(b.include.txtWeb, b.include.imgWeb, b.include.lblWeb, ValidationUtils.isValidUrl(b.include.txtWeb.getText().toString()))
                     && isAvailable(this, intent))
                 startActivity(intent);
 
 
         });
-        imgAddress.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + txtAddress.getText().toString()));
+        b.include.imgAddress.setOnClickListener(v -> {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:0,0?q=" + b.include.txtAddress.getText().toString()));
 
-            if (validateWhitIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()))
+            if (validateWhitIcon(b.include.txtAddress, b.include.imgAddress, b.include.lblAddress, !TextUtils.isEmpty(b.include.txtAddress.getText()))
                     && isAvailable(this, intent))
                 startActivity(intent);
 
         });
-        imgPhoneNumber.setOnClickListener(v -> {
+        b.include.imgPhonenumber.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_DIAL);
-            intent.setData(Uri.parse("tel:" + txtPhonenumber.getText().toString()));
+            intent.setData(Uri.parse("tel:" + b.include.txtPhonenumber.getText().toString()));
 
-            if (validateWhitIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber,
-                    ValidationUtils.isValidPhone(txtPhonenumber.getText().toString())) &&
+            if (validateWhitIcon(b.include.txtPhonenumber, b.include.imgPhonenumber, b.include.lblPhonenumber,
+                    ValidationUtils.isValidPhone(b.include.txtPhonenumber.getText().toString())) &&
                     isAvailable(this, intent))
                 startActivity(intent);
 
         });
-        imgEmail.setOnClickListener(v -> {
+        b.include.imgEmail.setOnClickListener(v -> {
             Intent intent = new Intent(Intent.ACTION_SENDTO)
-                    .setData(Uri.parse("mailto:" + txtEmail.getText().toString()));
+                    .setData(Uri.parse("mailto:" + b.include.txtEmail.getText().toString()));
 
-            if (validateWhitIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()))
+            if (validateWhitIcon(b.include.txtEmail, b.include.imgEmail, b.include.lblEmail, ValidationUtils.isValidEmail(b.include.txtEmail.getText().toString()))
                     && isAvailable(this, intent))
                 startActivity(intent);
 
         });
-        imgAvatar.setOnClickListener(v -> {
+        b.imgAvatarMain.setOnClickListener(v -> {
             Intent intent = new Intent(ProfileActivity.this, AvatarActivity.class);
             intent.putExtra(AvatarActivity.EXTRA_AVATAR, (Parcelable) viewModel.getUserIntent().getAvatar());
             startActivityForResult(intent, RC_OTRA);
         });
 
 
-        txtAddress.setOnFocusChangeListener((v, hasFocus) -> {
+        b.include.txtAddress.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
-                lblAddress.setTypeface(Typeface.DEFAULT_BOLD);
+                b.include.lblAddress.setTypeface(Typeface.DEFAULT_BOLD);
             else
-                lblAddress.setTypeface(Typeface.DEFAULT);
+                b.include.lblAddress.setTypeface(Typeface.DEFAULT);
         });
-        txtName.setOnFocusChangeListener((v, hasFocus) -> {
+        b.include.txtName.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
-                lblName.setTypeface(Typeface.DEFAULT_BOLD);
+                b.include.lblName.setTypeface(Typeface.DEFAULT_BOLD);
             else
-                lblName.setTypeface(Typeface.DEFAULT);
+                b.include.lblName.setTypeface(Typeface.DEFAULT);
         });
-        txtPhonenumber.setOnFocusChangeListener((v, hasFocus) -> {
+        b.include.txtPhonenumber.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
-                lblPhoneNumber.setTypeface(Typeface.DEFAULT_BOLD);
+                b.include.lblPhonenumber.setTypeface(Typeface.DEFAULT_BOLD);
             else
-                lblPhoneNumber.setTypeface(Typeface.DEFAULT);
+                b.include.lblPhonenumber.setTypeface(Typeface.DEFAULT);
         });
-        txtWeb.setOnFocusChangeListener((v, hasFocus) -> {
+        b.include.txtWeb.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
-                lblWeb.setTypeface(Typeface.DEFAULT_BOLD);
+                b.include.lblWeb.setTypeface(Typeface.DEFAULT_BOLD);
             else
-                lblWeb.setTypeface(Typeface.DEFAULT);
+                b.include.lblWeb.setTypeface(Typeface.DEFAULT);
         });
-        txtEmail.setOnFocusChangeListener((v, hasFocus) -> {
+        b.include.txtEmail.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus)
-                lblEmail.setTypeface(Typeface.DEFAULT_BOLD);
+                b.include.lblEmail.setTypeface(Typeface.DEFAULT_BOLD);
             else
-                lblEmail.setTypeface(Typeface.DEFAULT);
+                b.include.lblEmail.setTypeface(Typeface.DEFAULT);
         });
 
 
-        txtWeb.addTextChangedListener(new TextWatcher() {
+        b.include.txtWeb.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.getUserIntent().setWeb(txtWeb.getText().toString());
-                validateWhitIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()));
+                viewModel.getUserIntent().setWeb(b.include.txtWeb.getText().toString());
+                validateWhitIcon(b.include.txtWeb, b.include.imgWeb, b.include.lblWeb, ValidationUtils.isValidUrl(b.include.txtWeb.getText().toString()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-        txtName.addTextChangedListener(new TextWatcher() {
+        b.include.txtName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.getUserIntent().setName(txtName.getText().toString());
-                lblAvatar.setText(viewModel.getUserIntent().getName());
-                validateWhitoutIcon(txtName, lblName, !TextUtils.isEmpty(txtName.getText()));
+                viewModel.getUserIntent().setName(b.include.txtName.getText().toString());
+                b.lblAvatar.setText(viewModel.getUserIntent().getName());
+                validateWhitoutIcon(b.include.txtName, b.include.lblName, !TextUtils.isEmpty(b.include.txtName.getText()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-        txtAddress.addTextChangedListener(new TextWatcher() {
+        b.include.txtAddress.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.getUserIntent().setAddress(txtAddress.getText().toString());
-                validateWhitIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()));
+                viewModel.getUserIntent().setAddress(b.include.txtAddress.getText().toString());
+                validateWhitIcon(b.include.txtAddress, b.include.imgAddress, b.include.lblAddress, !TextUtils.isEmpty(b.include.txtAddress.getText()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-        txtPhonenumber.addTextChangedListener(new TextWatcher() {
+        b.include.txtPhonenumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                validateWhitIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber, ValidationUtils.isValidPhone(txtPhonenumber.getText().toString()));
+                validateWhitIcon(b.include.txtPhonenumber, b.include.imgPhonenumber, b.include.lblPhonenumber, ValidationUtils.isValidPhone(b.include.txtPhonenumber.getText().toString()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(TextUtils.isEmpty(txtPhonenumber.getText().toString())){
+                if(TextUtils.isEmpty(b.include.txtPhonenumber.getText().toString())){
                     viewModel.getUserIntent().setNumber(0);
                 }else{
-                    viewModel.getUserIntent().setNumber(Integer.parseInt(txtPhonenumber.getText().toString()));
+                    viewModel.getUserIntent().setNumber(Integer.parseInt(b.include.txtPhonenumber.getText().toString()));
                 }
 
             }
         });
-        txtEmail.addTextChangedListener(new TextWatcher() {
+        b.include.txtEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                viewModel.getUserIntent().setEmail(txtEmail.getText().toString());
-                validateWhitIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()));
+                viewModel.getUserIntent().setEmail(b.include.txtEmail.getText().toString());
+                validateWhitIcon(b.include.txtEmail, b.include.imgEmail, b.include.lblEmail, ValidationUtils.isValidEmail(b.include.txtEmail.getText().toString()));
             }
 
             @Override
             public void afterTextChanged(Editable s) {
             }
         });
-        txtWeb.setOnEditorActionListener((v, actionId, event) -> {
+        b.include.txtWeb.setOnEditorActionListener((v, actionId, event) -> {
             save();
             return false;
         });
@@ -277,13 +250,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void initUser(){
-        txtName.setText(viewModel.getUserIntent().getName());
-        lblAvatar.setText(viewModel.getUserIntent().getName());
-        txtAddress.setText(viewModel.getUserIntent().getAddress());
-        txtEmail.setText(viewModel.getUserIntent().getEmail());
-        txtWeb.setText(viewModel.getUserIntent().getWeb());
-        txtPhonenumber.setText(String.valueOf(viewModel.getUserIntent().getNumber()));
-        imgAvatar.setImageResource(viewModel.getUserIntent().getAvatar().getImageResId());
+        b.include.txtName.setText(viewModel.getUserIntent().getName());
+        b.lblAvatar.setText(viewModel.getUserIntent().getName());
+        b.include.txtAddress.setText(viewModel.getUserIntent().getAddress());
+        b.include.txtEmail.setText(viewModel.getUserIntent().getEmail());
+        b.include.txtWeb.setText(viewModel.getUserIntent().getWeb());
+        b.include.txtPhonenumber.setText(String.valueOf(viewModel.getUserIntent().getNumber()));
+        b.imgAvatarMain.setImageResource(viewModel.getUserIntent().getAvatar().getImageResId());
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -333,11 +306,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     private boolean validateAll() {
         boolean result = false;
-        boolean address = validateWhitIcon(txtAddress, imgAddress, lblAddress, !TextUtils.isEmpty(txtAddress.getText()));
-        boolean email = validateWhitIcon(txtEmail, imgEmail, lblEmail, ValidationUtils.isValidEmail(txtEmail.getText().toString()));
-        boolean name = validateWhitoutIcon(txtName, lblName, !TextUtils.isEmpty(txtName.getText()));
-        boolean phoneNumber = validateWhitIcon(txtPhonenumber, imgPhoneNumber, lblPhoneNumber, ValidationUtils.isValidPhone(txtPhonenumber.getText().toString()));
-        boolean web = validateWhitIcon(txtWeb, imgWeb, lblWeb, ValidationUtils.isValidUrl(txtWeb.getText().toString()));
+        boolean address = validateWhitIcon(b.include.txtAddress, b.include.imgAddress, b.include.lblAddress, !TextUtils.isEmpty(b.include.txtAddress.getText()));
+        boolean email = validateWhitIcon(b.include.txtEmail, b.include.imgEmail, b.include.lblEmail, ValidationUtils.isValidEmail(b.include.txtEmail.getText().toString()));
+        boolean name = validateWhitoutIcon(b.include.txtName, b.include.lblName, !TextUtils.isEmpty(b.include.txtName.getText()));
+        boolean phoneNumber = validateWhitIcon(b.include.txtPhonenumber, b.include.imgPhonenumber, b.include.lblPhonenumber, ValidationUtils.isValidPhone(b.include.txtPhonenumber.getText().toString()));
+        boolean web = validateWhitIcon(b.include.txtWeb, b.include.imgWeb, b.include.lblWeb, ValidationUtils.isValidUrl(b.include.txtWeb.getText().toString()));
 
         if (address && name && email && phoneNumber && web) {
             result = true;
@@ -346,20 +319,20 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
 
-    public void changeAvatar(Avatar avatar) {
-        imgAvatar.setImageResource(avatar.getImageResId());
-        lblAvatar.setText(avatar.getName());
-        imgAvatar.setTag(avatar.getImageResId());
-        viewModel.changeAvatar(avatar.getId());
-    }
+//    public void changeAvatar(Avatar avatar) {
+//        b.imgAvatarMain.setImageResource(avatar.getImageResId());
+//        b.lblAvatar.setText(avatar.getName());
+//        b.imgAvatarMain.setTag(avatar.getImageResId());
+//        viewModel.changeAvatar(avatar.getId());
+//    }
 
 
     private void save() {
         if(validateAll()){
-            Snackbar.make(txtWeb, getString(R.string.main_saved_succesfully), LENGTH_SHORT).show();
+            Snackbar.make(b.include.txtWeb, getString(R.string.main_saved_succesfully), LENGTH_SHORT).show();
             sendUser();
         }else{
-            Snackbar.make(txtWeb, getString(R.string.main_error_saving), LENGTH_SHORT).show();
+            Snackbar.make(b.include.txtWeb, getString(R.string.main_error_saving), LENGTH_SHORT).show();
         }
     }
 

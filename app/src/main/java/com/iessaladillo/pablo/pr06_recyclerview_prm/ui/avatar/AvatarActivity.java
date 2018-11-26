@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.R;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.data.local.Database;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.data.local.model.Avatar;
+import com.iessaladillo.pablo.pr06_recyclerview_prm.databinding.ActivitySelectAvatarBinding;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.ui.utils.ResourcesUtils;
 
 import java.util.List;
@@ -17,25 +18,16 @@ import java.util.List;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 public class AvatarActivity extends AppCompatActivity{
 
         private ViewModelAvatarActivity viewModel;
+        private ActivitySelectAvatarBinding b;
         private List<Avatar> listCat;
         private Avatar avatarIntent;
-        private ImageView imgAvatar1;
-        private ImageView imgAvatar2;
-        private ImageView imgAvatar3;
-        private ImageView imgAvatar4;
-        private ImageView imgAvatar5;
-        private ImageView imgAvatar6;
-        private TextView lblAvatar1;
-        private TextView lblAvatar2;
-        private TextView lblAvatar3;
-        private TextView lblAvatar4;
-        private TextView lblAvatar5;
-        private TextView lblAvatar6;
+
 
         @VisibleForTesting
         public static final String EXTRA_AVATAR = "EXTRA_AVATAR";
@@ -43,7 +35,7 @@ public class AvatarActivity extends AppCompatActivity{
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_select_avatar);
+            b=DataBindingUtil.setContentView(this,R.layout.activity_select_avatar);
             getIntentData();
             initView();
         }
@@ -63,31 +55,17 @@ public class AvatarActivity extends AppCompatActivity{
                     .get(ViewModelAvatarActivity.class);
 
 
-            imgAvatar1 = ActivityCompat.requireViewById(this, R.id.imgAvatar1);
-            imgAvatar2 = ActivityCompat.requireViewById(this, R.id.imgAvatar2);
-            imgAvatar3 = ActivityCompat.requireViewById(this, R.id.imgAvatar3);
-            imgAvatar4 = ActivityCompat.requireViewById(this, R.id.imgAvatar4);
-            imgAvatar5 = ActivityCompat.requireViewById(this, R.id.imgAvatar5);
-            imgAvatar6 = ActivityCompat.requireViewById(this, R.id.imgAvatar6);
-
-            lblAvatar1 = ActivityCompat.requireViewById(this, R.id.lblAvatar1);
-            lblAvatar2 = ActivityCompat.requireViewById(this, R.id.lblAvatar2);
-            lblAvatar3 = ActivityCompat.requireViewById(this, R.id.lblAvatar3);
-            lblAvatar4 = ActivityCompat.requireViewById(this, R.id.lblAvatar4);
-            lblAvatar5 = ActivityCompat.requireViewById(this, R.id.lblAvatar5);
-            lblAvatar6 = ActivityCompat.requireViewById(this, R.id.lblAvatar6);
-
 
             setAvatarCats();
             viewModel.changeAvatar(avatarIntent.getId(),false);
             selectImageView(null,checkImgView(viewModel.getAvatar()));
 
-            imgAvatar1.setOnClickListener(v -> clickAvatar(imgAvatar1,0));
-            imgAvatar2.setOnClickListener(v -> clickAvatar(imgAvatar2,1));
-            imgAvatar3.setOnClickListener(v -> clickAvatar(imgAvatar3,2));
-            imgAvatar4.setOnClickListener(v -> clickAvatar(imgAvatar4,3));
-            imgAvatar5.setOnClickListener(v -> clickAvatar(imgAvatar5,4));
-            imgAvatar6.setOnClickListener(v -> clickAvatar(imgAvatar6,5));
+            b.imgAvatar1.setOnClickListener(v -> clickAvatar(b.imgAvatar1,0));
+            b.imgAvatar2.setOnClickListener(v -> clickAvatar(b.imgAvatar2,1));
+            b.imgAvatar3.setOnClickListener(v -> clickAvatar(b.imgAvatar3,2));
+            b.imgAvatar4.setOnClickListener(v -> clickAvatar(b.imgAvatar4,3));
+            b.imgAvatar5.setOnClickListener(v -> clickAvatar(b.imgAvatar5,4));
+            b.imgAvatar6.setOnClickListener(v -> clickAvatar(b.imgAvatar6,5));
         }
 
         private void clickAvatar(ImageView imgView,int position){
@@ -110,34 +88,34 @@ public class AvatarActivity extends AppCompatActivity{
         }
 
         private void setAvatarCats() {
-            imgAvatar1.setImageResource(listCat.get(0).getImageResId());
-            imgAvatar2.setImageResource(listCat.get(1).getImageResId());
-            imgAvatar3.setImageResource(listCat.get(2).getImageResId());
-            imgAvatar4.setImageResource(listCat.get(3).getImageResId());
-            imgAvatar5.setImageResource(listCat.get(4).getImageResId());
-            imgAvatar6.setImageResource(listCat.get(5).getImageResId());
+            b.imgAvatar1.setImageResource(listCat.get(0).getImageResId());
+            b.imgAvatar2.setImageResource(listCat.get(1).getImageResId());
+            b.imgAvatar3.setImageResource(listCat.get(2).getImageResId());
+            b.imgAvatar4.setImageResource(listCat.get(3).getImageResId());
+            b.imgAvatar5.setImageResource(listCat.get(4).getImageResId());
+            b.imgAvatar6.setImageResource(listCat.get(5).getImageResId());
 
-            lblAvatar1.setText(listCat.get(0).getName());
-            lblAvatar2.setText(listCat.get(1).getName());
-            lblAvatar3.setText(listCat.get(2).getName());
-            lblAvatar4.setText(listCat.get(3).getName());
-            lblAvatar5.setText(listCat.get(4).getName());
-            lblAvatar6.setText(listCat.get(5).getName());
+            b.lblAvatar1.setText(listCat.get(0).getName());
+            b.lblAvatar2.setText(listCat.get(1).getName());
+            b.lblAvatar3.setText(listCat.get(2).getName());
+            b.lblAvatar4.setText(listCat.get(3).getName());
+            b.lblAvatar5.setText(listCat.get(4).getName());
+            b.lblAvatar6.setText(listCat.get(5).getName());
         }
 
         private ImageView checkImgView(Avatar avatar) {
-            if (avatar.getName().equals(lblAvatar1.getText())) {
-                return imgAvatar1;
-            } else if (avatar.getName().equals(lblAvatar2.getText())) {
-                return imgAvatar2;
-            } else if (avatar.getName().equals(lblAvatar3.getText())) {
-                return imgAvatar3;
-            } else if (avatar.getName().equals(lblAvatar4.getText())) {
-                return imgAvatar4;
-            } else if (avatar.getName().equals(lblAvatar5.getText())) {
-                return imgAvatar5;
+            if (avatar.getName().equals(b.lblAvatar1.getText())) {
+                return b.imgAvatar1;
+            } else if (avatar.getName().equals(b.lblAvatar2.getText())) {
+                return b.imgAvatar2;
+            } else if (avatar.getName().equals(b.lblAvatar3.getText())) {
+                return b.imgAvatar3;
+            } else if (avatar.getName().equals(b.lblAvatar4.getText())) {
+                return b.imgAvatar4;
+            } else if (avatar.getName().equals(b.lblAvatar5.getText())) {
+                return b.imgAvatar5;
             } else {
-                return imgAvatar6;
+                return b.imgAvatar6;
             }
         }
 

@@ -4,15 +4,13 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.iessaladillo.pablo.pr06_recyclerview_prm.R;
 import com.iessaladillo.pablo.pr06_recyclerview_prm.data.local.model.User;
+import com.iessaladillo.pablo.pr06_recyclerview_prm.databinding.ActivityMainItemBinding;
 
 import androidx.annotation.NonNull;
-import androidx.core.view.ViewCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
@@ -42,8 +40,9 @@ public class MainActivityAdapter extends ListAdapter<User,MainActivityAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_main_item,parent,false), onUserListener);
+        return new ViewHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()),R.layout.activity_main_item, parent,false),onUserListener);
+//        return new ViewHolder(LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.activity_main_item,parent,false), onUserListener);
     }
 
 
@@ -57,31 +56,20 @@ public class MainActivityAdapter extends ListAdapter<User,MainActivityAdapter.Vi
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-        private final TextView lblName;
-        private final TextView lblPhone;
-        private final TextView lblEmail;
-        private final ImageView avatar;
-        private final Button edit;
-        private final Button delete;
+        private ActivityMainItemBinding b;
 
-        public ViewHolder(@NonNull View itemView, OnUserListener onUserListener) {
-            super(itemView);
-            lblName = ViewCompat.requireViewById(itemView,R.id.cvName);
-            lblPhone = ViewCompat.requireViewById(itemView,R.id.cvPhonenumber);
-            lblEmail = ViewCompat.requireViewById(itemView,R.id.cvEmail);
-            avatar = ViewCompat.requireViewById(itemView,R.id.cvAvatar);
-            edit = ViewCompat.requireViewById(itemView,R.id.bttEdit);
-            delete = ViewCompat.requireViewById(itemView,R.id.bttDelete);
-            // MIRAR BIEN
-            edit.setOnClickListener(v -> onUserListener.onItemClickEdit(getAdapterPosition()));
-            delete.setOnClickListener(v -> onUserListener.onItemClickDelete(getAdapterPosition()));
+        public ViewHolder(@NonNull ActivityMainItemBinding b, OnUserListener onUserListener) {
+            super(b.getRoot());
+            this.b = b;
+            this.b.bttEdit.setOnClickListener(v -> onUserListener.onItemClickEdit(getAdapterPosition()));
+            this.b.bttDelete.setOnClickListener(v -> onUserListener.onItemClickDelete(getAdapterPosition()));
         }
 
         public void bind(User user) {
-            lblName.setText(user.getName());
-            lblEmail.setText(user.getEmail());
-            avatar.setImageResource(user.getAvatar().getImageResId());
-            lblPhone.setText(String.valueOf(user.getNumber()));
+            b.cvName.setText(user.getName());
+            b.cvEmail.setText(user.getEmail());
+            b.cvAvatar.setImageResource(user.getAvatar().getImageResId());
+            b.cvPhonenumber.setText(String.valueOf(user.getNumber()));
         }
     }
 

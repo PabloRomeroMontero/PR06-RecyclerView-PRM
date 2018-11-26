@@ -1,48 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/clRoot"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRoot"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <ImageView
-        android:id="@+id/imgAvatarMain"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/include"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_weight="1"/>
+        <ImageView
+            android:id="@+id/imgAvatarMain"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/include"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_weight="1" />
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/activity_profile"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgAvatarMain"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHorizontal_weight="2"/>
+        <include
+            android:id="@+id/include"
+            layout="@layout/activity_profile"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imgAvatarMain"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_weight="2" />
 
-    <TextView
-        android:id="@+id/lblAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="@+id/imgAvatarMain"
-        app:layout_constraintEnd_toEndOf="@+id/imgAvatarMain"
-        app:layout_constraintHorizontal_bias="0.836"
-        app:layout_constraintStart_toStartOf="@+id/imgAvatarMain"
-        app:layout_constraintTop_toTopOf="@+id/imgAvatarMain"
-        app:layout_constraintVertical_bias="0.837"
-        app:layout_constraintHorizontal_weight="1"/>
+        <TextView
+            android:id="@+id/lblAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/darker_gray"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/imgAvatarMain"
+            app:layout_constraintEnd_toEndOf="@+id/imgAvatarMain"
+            app:layout_constraintHorizontal_bias="0.836"
+            app:layout_constraintStart_toStartOf="@+id/imgAvatarMain"
+            app:layout_constraintTop_toTopOf="@+id/imgAvatarMain"
+            app:layout_constraintVertical_bias="0.837"
+            app:layout_constraintHorizontal_weight="1" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
